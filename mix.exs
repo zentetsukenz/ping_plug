@@ -5,9 +5,9 @@ defmodule PingPlug.Mixfile do
     [app: :ping_plug,
      version: "0.1.0",
      elixir: "~> 1.3",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     package: package,
+     description: description]
   end
 
   # Configuration for the OTP application
@@ -30,5 +30,22 @@ defmodule PingPlug.Mixfile do
     [{:cowboy, "~> 1.0.0"},
      {:plug, "~> 1.2.0"},
      {:ex_doc, "~> 0.14", only: :dev}]
+  end
+
+  defp package do
+    [
+      maintainers: ["Wiwatta  Mongkhonchit"],
+      licenses: ["MIT"],
+      links: %{
+        "Github" => "https://github.com/zentetsukenz/ping_plug",
+      }
+    ]
+  end
+
+  defp description do
+    """
+    A simple plug to echo message back, useful with healthcheck endpoint
+    where you just need to response 200 ok.
+    """
   end
 end
