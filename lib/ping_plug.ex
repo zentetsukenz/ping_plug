@@ -16,7 +16,7 @@ defmodule PingPlug do
 
   def call(%Plug.Conn{} = conn, options) do
     conn
-    |> put_resp_header("content-type", options[:content_type])
+    |> put_resp_content_type(options[:content_type])
     |> send_resp(200, options[:message])
   end
 

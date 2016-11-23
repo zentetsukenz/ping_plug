@@ -26,7 +26,7 @@ defmodule PingPlugTest do
 
     conn = PingPlug.call(conn, options)
 
-    assert ["text/plain"] == get_resp_header(conn, "content-type")
+    assert ["text/plain; charset=utf-8"] == get_resp_header(conn, "content-type")
   end
 
   test "return input content type" do
@@ -35,6 +35,6 @@ defmodule PingPlugTest do
 
     conn = PingPlug.call(conn, options)
 
-    assert ["application/json"] == get_resp_header(conn, "content-type")
+    assert ["application/json; charset=utf-8"] == get_resp_header(conn, "content-type")
   end
 end
