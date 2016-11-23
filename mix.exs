@@ -9,7 +9,7 @@ defmodule PingPlug.Mixfile do
       deps: deps(),
       package: package,
       description: description,
-      docs:[
+      docs: [
         extras: ~W(README.md)
       ]
     ]
