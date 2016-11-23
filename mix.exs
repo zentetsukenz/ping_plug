@@ -2,12 +2,17 @@ defmodule PingPlug.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :ping_plug,
-     version: "0.1.0",
-     elixir: "~> 1.3",
-     deps: deps(),
-     package: package,
-     description: description]
+    [
+      app: :ping_plug,
+      version: "0.1.0",
+      elixir: "~> 1.3",
+      deps: deps(),
+      package: package,
+      description: description,
+      docs:[
+        extras: ~W(README.md)
+      ]
+    ]
   end
 
   # Configuration for the OTP application
@@ -38,6 +43,7 @@ defmodule PingPlug.Mixfile do
       licenses: ["MIT"],
       links: %{
         "Github" => "https://github.com/zentetsukenz/ping_plug",
+        "Docs"   => "https://hexdocs.pm/ping_plug"
       }
     ]
   end
