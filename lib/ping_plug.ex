@@ -7,7 +7,7 @@ defmodule PingPlug do
 
   def call(%Plug.Conn{} = conn, env) do
     conn
-    |> put_resp_header("content-type", "text/plain")
+    |> put_resp_content_type("text/plain")
     |> send_resp(200, env)
   end
 end
