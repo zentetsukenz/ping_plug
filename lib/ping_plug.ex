@@ -1,6 +1,11 @@
 defmodule PingPlug do
+  @moduledoc """
+  A PingPlug module to echo defined message back.
+  """
+
   import Plug.Conn
 
+  @spec defaults() :: Keyword.t
   def defaults do
     [
       message:      "pong",
@@ -8,12 +13,14 @@ defmodule PingPlug do
     ]
   end
 
+  @spec init(Keyword.t) :: Keyword.t
   def init(options) do
     defaults
     |> Keyword.merge(options)
     |> sanitize_options()
   end
 
+  @spec call(Plug.Conn.t, Keyword.t) :: Plug.Conn.t | no_return
   def call(%Plug.Conn{} = conn, options) do
     conn
     |> put_resp_content_type(options[:content_type])
