@@ -1,13 +1,29 @@
 defmodule PingPlug do
   import Plug.Conn
 
-  def init(env) do
-    Atom.to_string(env)
+  def defaults do
+    [
+      message:      "pong",
+      content_type: "text/plain",
+    ]
   end
 
-  def call(%Plug.Conn{} = conn, env) do
+  def init(options) do
+    defaults
+    |> Keyword.merge(options)
+    |> sanitize_options()
+  end
+
+  def call(%Plug.Conn{} = conn, options) do
     conn
-    |> put_resp_content_type("text/plain")
-    |> send_resp(200, env)
+    |> put_resp_header("content-type", options[:content_type])
+    |> send_resp(200, options[:message])
+  end
+
+  defp sanitize_options(options) do
+    [
+      message:      to_string(options[:message]),
+      content_type: options[:content_type],
+    ]
   end
 end
