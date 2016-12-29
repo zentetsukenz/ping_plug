@@ -5,17 +5,14 @@ defmodule PingPlug do
 
   import Plug.Conn
 
-  @spec defaults() :: Keyword.t
-  def defaults do
-    [
-      message:      "pong",
-      content_type: "text/plain",
-    ]
-  end
+  @defaults [
+    message:      "pong",
+    content_type: "text/plain",
+  ]
 
   @spec init(Keyword.t) :: Keyword.t
   def init(options) do
-    defaults
+    @defaults
     |> Keyword.merge(options)
     |> sanitize_options()
   end
