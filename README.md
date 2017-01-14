@@ -6,7 +6,7 @@ A simple Elixir plug to echo message
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+The package can be installed as:
 
 Add `ping_plug` to your list of dependencies in `mix.exs`:
 
@@ -26,13 +26,25 @@ e.g. route.ex
 get "/ping", PingPlug, []
 ```
 
-only 2 options are available right now,
+Add `:ping_plug` to your application dependencies.
 
-- :message is the response that will be echoed back. The default is "pong".
-- :content_type is HTTP Header Content type. The default is "text/plain".
+mix.exs
+```elixir
+def application do
+  [mod: {MyApp, []},
+   applications: [..., :ping_plug, ...]]
+end
+```
+
+Echo message can be specified by passing an optional params to PingPlug.
 
 e.g.
 
 ```elixir
 get "/ping", PingPlug, [message: Mix.env]
 ```
+
+## Available options
+
+- `:message`, Echo message.
+- `:content_type`, Response content type.
