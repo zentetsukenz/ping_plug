@@ -4,7 +4,7 @@ defmodule PingPlug.Mixfile do
   def project do
     [
       app: :ping_plug,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.3",
       deps: deps(),
       package: package,
