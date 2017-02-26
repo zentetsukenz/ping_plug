@@ -7,8 +7,8 @@ defmodule PingPlug.Mixfile do
       version: "0.1.2",
       elixir: "~> 1.3",
       deps: deps(),
-      package: package,
-      description: description,
+      package: package(),
+      description: description(),
       docs: [
         extras: ~W(README.md)
       ]
