@@ -16,6 +16,14 @@ def deps do
 end
 ```
 
+For Phoenix 1.3+, please use `~> 0.2.0`
+
+```elixir
+def deps do
+  [{:ping_plug, "~> 0.2.0"}]
+end
+```
+
 ## Usage
 
 Mount PingPlug module to your desire route.
