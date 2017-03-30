@@ -5,7 +5,7 @@ defmodule PingPlug.Mixfile do
     [
       app: :ping_plug,
       version: "0.1.2",
-      elixir: "~> 1.3",
+      elixir: "~> 1.4",
       deps: deps(),
       package: package(),
       description: description(),
@@ -33,7 +33,7 @@ defmodule PingPlug.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [{:cowboy, "~> 1.0", optional: true},
-     {:plug, "~> 1.2.0"},
+     {:plug, "~> 1.3"},
      {:ex_doc, "~> 0.14", only: :dev}]
   end
 
