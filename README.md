@@ -1,6 +1,7 @@
 # PingPlug
 
 [![Build Status](https://travis-ci.org/zentetsukenz/ping_plug.svg?branch=master)](https://travis-ci.org/zentetsukenz/ping_plug)
+[![Hex.pm](https://img.shields.io/hexpm/v/ping_plug.svg?style=flat-square)](https://hex.pm/packages/ping_plug)
 
 A simple Elixir plug to echo message
 
