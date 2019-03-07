@@ -5,7 +5,7 @@ defmodule PingPlug.Mixfile do
     [
       app: :ping_plug,
       version: "0.2.0",
-      elixir: "~> 1.4",
+      elixir: "~> 1.8",
       deps: deps(),
       package: package(),
       description: description(),
@@ -19,7 +19,7 @@ defmodule PingPlug.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :plug]]
   end
 
   # Dependencies can be Hex packages:
@@ -32,8 +32,8 @@ defmodule PingPlug.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:cowboy, "~> 1.0", optional: true},
-     {:plug, "~> 1.3"},
+    [{:cowboy, "~> 2.0", optional: true},
+     {:plug, "~> 1.7"},
      {:ex_doc, "~> 0.14", only: :dev}]
   end
 
