@@ -4,7 +4,7 @@ defmodule PingPlug.Mixfile do
   def project do
     [
       app: :ping_plug,
-      version: "0.2.0",
+      version: "0.2.1",
       elixir: "~> 1.8",
       deps: deps(),
       package: package(),
@@ -15,22 +15,10 @@ defmodule PingPlug.Mixfile do
     ]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type "mix help compile.app" for more information
   def application do
     [applications: [:logger, :plug]]
   end
 
-  # Dependencies can be Hex packages:
-  #
-  #   {:mydep, "~> 0.3.0"}
-  #
-  # Or git/path repositories:
-  #
-  #   {:mydep, git: "https://github.com/elixir-lang/mydep.git", tag: "0.1.0"}
-  #
-  # Type "mix help deps" for more examples and options
   defp deps do
     [
       {:cowboy, "~> 2.0", optional: true},
