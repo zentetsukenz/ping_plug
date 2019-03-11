@@ -1,0 +1,11 @@
+PreCommit:
+  TrailingWhitespace:
+    enabled: true
+    required: true
+
+  Dialyzer:
+    enabled: true
+    required: false
+    description: "Analyze with Dialyzer"
+    required_executable: "mix"
+    flags: ["dialyzer", "--format=short", "--halt-exit-status"]

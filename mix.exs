@@ -35,7 +35,8 @@ defmodule PingPlug.Mixfile do
     [
       {:cowboy, "~> 2.0", optional: true},
       {:plug, "~> 1.7"},
-      {:ex_doc, ">= 0.19.1", only: :dev, runtime: false}
+      {:ex_doc, ">= 0.19.1", only: :dev, runtime: false},
+      {:dialyxir, ">= 1.0.0-rc4", only: :dev, runtime: false}
     ]
   end
 
