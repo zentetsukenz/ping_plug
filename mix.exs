@@ -32,9 +32,11 @@ defmodule PingPlug.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:cowboy, "~> 2.0", optional: true},
-     {:plug, "~> 1.7"},
-     {:ex_doc, "~> 0.14", only: :dev}]
+    [
+      {:cowboy, "~> 2.0", optional: true},
+      {:plug, "~> 1.7"},
+      {:ex_doc, ">= 0.19.1", only: :dev, runtime: false}
+    ]
   end
 
   defp package do
@@ -43,7 +45,7 @@ defmodule PingPlug.Mixfile do
       licenses: ["MIT"],
       links: %{
         "Github" => "https://github.com/zentetsukenz/ping_plug",
-        "Docs"   => "https://hexdocs.pm/ping_plug"
+        "Docs" => "https://hexdocs.pm/ping_plug"
       }
     ]
   end
