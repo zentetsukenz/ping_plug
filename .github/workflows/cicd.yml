@@ -57,8 +57,8 @@ jobs:
       - name: Setup Elixir
         uses: erlef/setup-beam@v1
         with:
-          elixir-version: ${{ matrix.otp }}
-          otp-version: ${{ matrix.elixir }}
+          elixir-version: ${{ matrix.elixir }}
+          otp-version: ${{ matrix.otp }}
 
       - name: Cache deps
         uses: actions/cache@v2
