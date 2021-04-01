@@ -18,4 +18,4 @@ publish:
   - "@semantic-release/github"
 
   - path: "@semantic-release/exec"
-    cmd: "mix hex.publish package --yes --dry-run"
+    cmd: "mix hex.publish package --yes"
