@@ -1,0 +1,161 @@
+name: CI/CD
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+env:
+  LATEST_OTP_VERSION: "23.3.1"
+  LATEST_ELIXIR_VERSION: "1.11.4"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.LATEST_ELIXIR_VERSION }}
+          otp-version: ${{ env.LATEST_OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ env.LATEST_OTP_VERSION }}-${{ env.LATEST_ELIXIR_VERSION }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Check formatted
+        run: mix format --check-formatted
+
+      - name: Check quality
+        run: mix credo
+
+  test:
+    name: Test on (Erlang/OTP ${{ matrix.otp }} | Elixir ${{ matrix.elixir }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        otp: ["23.3.1", "23.2.4", "22.3.4.15", "21.3.8.20"]
+        elixir: ["1.11.4", "1.10.4"]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ matrix.otp }}
+          otp-version: ${{ matrix.elixir }}
+
+      - name: Cache deps
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ matrix.otp }}-${{ matrix.elixir }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Test
+        run: mix do compile --warnings-as-errors, test --cover
+        env:
+          MIX_ENV: test
+
+  spec_check:
+    name: Optimistic type checking
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.LATEST_ELIXIR_VERSION }}
+          otp-version: ${{ env.LATEST_OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ env.LATEST_OTP_VERSION }}-${{ env.LATEST_ELIXIR_VERSION }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: PLTs Cache
+        uses: actions/cache@v2
+        id: plt-cache
+        with:
+          path: priv/plts
+          key: ${{ runner.os }}-${{ env.LATEST_OTP_VERSION }}-${{ env.LATEST_ELIXIR_VERSION }}-plts-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Create PLTs
+        if: steps.plt-cache.outputs.cache-hit != 'true'
+        run: |
+          mkdir -p priv/plts
+          mix dialyzer --plt
+
+      - name: Dialyzer
+        run: mix dialyzer --no-check --format short
+
+  release:
+    if: github.ref == 'refs/heads/master'
+    name: Release
+    runs-on: ubuntu-latest
+    needs: [lint, test, spec_check]
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.LATEST_ELIXIR_VERSION }}
+          otp-version: ${{ env.LATEST_OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ env.LATEST_OTP_VERSION }}-${{ env.LATEST_ELIXIR_VERSION }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HEX_API_KEY: ${{ secrets.HEX_TOKEN }}
+        with:
+          extra_plugins: |
+            @semantic-release/git@7.0.18
+            @semantic-release/exec@3.3.8
+            @semantic-release/changelog@3.0.0
