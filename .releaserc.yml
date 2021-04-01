@@ -11,9 +11,6 @@ plugins:
 
 prepare:
   - path: "@semantic-release/exec"
-    cmd: "cat mix.exs"
-
-  - path: "@semantic-release/exec"
     cmd: "sed -i -e 's/version: \"0.0.0\"\/version: \"${nextRelease.version}\"\/g' mix.exs"
 
 publish:
