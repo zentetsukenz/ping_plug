@@ -1,7 +1,7 @@
 # PingPlug
 
 [![CI/CD](https://github.com/zentetsukenz/ping_plug/actions/workflows/cicd.yml/badge.svg?branch=master)](https://github.com/zentetsukenz/ping_plug/actions/workflows/cicd.yml)
-[![Hex.pm](https://img.shields.io/hexpm/v/ping_plug.svg?style=flat-square)](https://hex.pm/packages/ping_plug)
+[![Hex.pm](https://img.shields.io/hexpm/v/ping_plug.svg?logo=elixir)](https://hex.pm/packages/ping_plug)
 
 A simple Elixir plug to echo message
 
