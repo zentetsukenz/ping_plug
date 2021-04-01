@@ -8,7 +8,14 @@ plugins:
   - "@semantic-release/github"
 
 prepare:
-  - cmd: "cat mix.exs"
-    path: "@semantic-release/exec"
-  - cmd: "sed -i -e 's/version: \"0.1.0\"\/version: \"${nextRelease.version}\"\/g' mix.exs"
-    path: "@semantic-release/exec"
+  - path: "@semantic-release/exec"
+    cmd: "cat mix.exs"
+
+  - path: "@semantic-release/exec"
+    cmd: "sed -i -e 's/version: \"0.0.0\"\/version: \"${nextRelease.version}\"\/g' mix.exs"
+
+publish:
+  - "@semantic-release/github",
+
+  - path: "@semantic-release/exec",
+    cmd: "mix hex.publish package --yes --dry-run"
