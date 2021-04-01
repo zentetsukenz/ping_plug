@@ -6,18 +6,18 @@ defmodule PingPlug do
   import Plug.Conn
 
   @defaults [
-    message:      "pong",
-    content_type: "text/plain",
+    message: "pong",
+    content_type: "text/plain"
   ]
 
-  @spec init(Keyword.t) :: Keyword.t
+  @spec init(Keyword.t()) :: Keyword.t()
   def init(options) do
     @defaults
     |> Keyword.merge(options)
     |> sanitize_options()
   end
 
-  @spec call(Plug.Conn.t, Keyword.t) :: Plug.Conn.t | no_return
+  @spec call(Plug.Conn.t(), Keyword.t()) :: Plug.Conn.t() | no_return
   def call(%Plug.Conn{} = conn, options) do
     conn
     |> put_resp_content_type(options[:content_type])
@@ -26,8 +26,8 @@ defmodule PingPlug do
 
   defp sanitize_options(options) do
     [
-      message:      to_string(options[:message]),
-      content_type: options[:content_type],
+      message: to_string(options[:message]),
+      content_type: options[:content_type]
     ]
   end
 end
