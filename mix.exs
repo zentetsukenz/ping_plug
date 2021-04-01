@@ -4,7 +4,8 @@ defmodule PingPlug.Mixfile do
   def project do
     [
       app: :ping_plug,
-      version: "0.2.1",
+      # Version will be automatically replaced by semantic release upon release.
+      version: "0.0.0",
       elixir: "~> 1.10",
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),

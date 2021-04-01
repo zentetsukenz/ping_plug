@@ -1,0 +1,14 @@
+branches:
+  - master
+
+plugins:
+  - "@semantic-release/exec"
+  - "@semantic-release/changelog"
+  - "@semantic-release/git"
+  - "@semantic-release/github"
+
+prepare:
+  - cmd: "cat mix.exs"
+    path: "@semantic-release/exec"
+  - cmd: "sed -i -e 's/version: \"0.1.0\"\/version: \"${nextRelease.version}\"\/g' mix.exs"
+    path: "@semantic-release/exec"
