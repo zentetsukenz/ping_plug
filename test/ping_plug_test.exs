@@ -12,12 +12,12 @@ defmodule PingPlugTest do
   end
 
   test "return input message as text" do
-    options = PingPlug.init([message: Mix.env])
+    options = PingPlug.init(message: Mix.env())
     conn = conn(:get, "/")
 
     conn = PingPlug.call(conn, options)
 
-    assert to_string(Mix.env) == conn.resp_body
+    assert to_string(Mix.env()) == conn.resp_body
   end
 
   test "return default content type as text/plain" do
@@ -30,7 +30,7 @@ defmodule PingPlugTest do
   end
 
   test "return input content type" do
-    options = PingPlug.init([content_type: "application/json"])
+    options = PingPlug.init(content_type: "application/json")
     conn = conn(:get, "/")
 
     conn = PingPlug.call(conn, options)
