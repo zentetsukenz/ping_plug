@@ -10,6 +10,8 @@ defmodule PingPlug.Mixfile do
       elixirc_paths: elixirc_paths(Mix.env()),
       deps: deps(),
       package: package(),
+      source_url: source_url(),
+      homepage_url: homepage_url(),
       aliases: aliases(),
       description: description(),
       test_coverage: [tool: ExCoveralls],
@@ -49,23 +51,25 @@ defmodule PingPlug.Mixfile do
 
   defp package do
     [
-      name: :ping_plug,
+      name: "ping_plug",
       maintainers: ["Wiwatta  Mongkhonchit"],
       licenses: ["MIT"],
       links: %{
-        "Github" => "https://github.com/zentetsukenz/ping_plug",
-        "Docs" => "https://hexdocs.pm/ping_plug"
+        "Github" => source_url(),
+        "Docs" => homepage_url()
       }
     ]
   end
+
+  defp source_url, do: "https://github.com/zentetsukenz/ping_plug"
+  defp homepage_url, do: "https://hexdocs.pm/ping_plug"
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
   defp description do
     """
-    A simple plug to echo message back, useful with healthcheck endpoint
-    where you just need to response 200 ok.
+    A plug to echo a defined message.
     """
   end
 
