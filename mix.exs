@@ -41,6 +41,7 @@ defmodule PingPlug.Mixfile do
     [
       {:credo, "~> 1.5", only: [:dev], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
+      {:ex_doc, "~> 0.24", only: :dev, runtime: false},
       {:excoveralls, "~> 0.14", only: :test},
       {:plug_cowboy, "~> 2.0"}
     ]
