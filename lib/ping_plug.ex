@@ -38,9 +38,6 @@ defmodule PingPlug do
   # db_check.ex
 
   defmodule DBCheck do
-    @behaviour PingPlug
-
-    @impl true
     def check do
       case Ecto.Adapters.SQL.query(Repo, "SELECT 1") do
         {:ok, _result} ->
