@@ -79,6 +79,38 @@ jobs:
         env:
           MIX_ENV: test
 
+  coverage:
+    name: Test coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Elixir
+        uses: erlef/setup-beam@v1
+        with:
+          elixir-version: ${{ env.LATEST_ELIXIR_VERSION }}
+          otp-version: ${{ env.LATEST_OTP_VERSION }}
+
+      - name: Cache deps
+        uses: actions/cache@v2
+        id: mix-cache
+        with:
+          path: deps
+          key: ${{ runner.os }}-${{ env.LATEST_OTP_VERSION }}-${{ env.LATEST_ELIXIR_VERSION }}-mix-${{ hashFiles(format('{0}{1}', github.workspace, '/mix.lock')) }}
+
+      - name: Install Dependencies
+        if: steps.mix-cache.outputs.cache-hit != 'true'
+        run: |
+          mix local.rebar --force
+          mix local.hex --force
+          mix deps.get
+
+      - name: Test coverage
+        run: mix coveralls.github
+        env:
+          MIX_ENV: test
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   spec_check:
     name: Optimistic type checking
     runs-on: ubuntu-latest
