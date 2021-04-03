@@ -1,7 +1,8 @@
 # PingPlug
 
 [![CI/CD](https://github.com/zentetsukenz/ping_plug/actions/workflows/cicd.yml/badge.svg?branch=master)](https://github.com/zentetsukenz/ping_plug/actions/workflows/cicd.yml)
-[![Hex.pm](https://img.shields.io/hexpm/v/ping_plug.svg?logo=elixir)](https://hex.pm/packages/ping_plug)
+[![Hex.pm](https://img.shields.io/hexpm/v/ping_plug.svg)](https://hex.pm/packages/ping_plug)
+[![Coverage Status](https://coveralls.io/repos/github/zentetsukenz/ping_plug/badge.svg?branch=master)](https://coveralls.io/github/zentetsukenz/ping_plug?branch=master)
 
 PingPlug, a plug to echo a defined message.
 
